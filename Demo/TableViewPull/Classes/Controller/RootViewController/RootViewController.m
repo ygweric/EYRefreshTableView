@@ -30,16 +30,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    numberOfCells = 4;
 	
 	if (_refreshHeaderView == nil) {
 		
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
 		view.delegate = self;
-		[self.tableView addSubview:view];
+		
+        [self.tableView addSubview:view];
 		_refreshHeaderView = view;
-		[view release];
 		
 	}
+    
+    if (_loadMoreFooterView == nil) {
+        EGORefreshTableFooterView *view = [[EGORefreshTableFooterView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.tableView.bounds.size.height)];
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, -view.bounds.size.height, 0);
+        view.delegate = self;
+        
+        self.tableView.tableFooterView = view;
+        _loadMoreFooterView = view;
+        
+    }
 	
 	//  update the last update date
 	[_refreshHeaderView refreshLastUpdatedDate];
@@ -56,11 +67,15 @@
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 10;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    if(section == 1) {
+        return numberOfCells/2;
+    } else {
+        return (numberOfCells + 1)/2;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,6 +87,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
+    cell.textLabel.text = [NSString stringWithFormat:@"Cell %i", indexPath.row];
+    
 	// Configure the cell.
 
     return cell;
@@ -81,6 +98,10 @@
 	
 	return [NSString stringWithFormat:@"Section %i", section];
 	
+}
+
+- (NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+    return [NSString stringWithFormat:@"Footer %i", section];
 }
 
 
@@ -103,6 +124,28 @@
 	
 }
 
+#pragma mark -
+#pragma mark Data Source LoadingMore Methods
+
+- (void)loadMoreFromTableViewDataSource{
+	
+	//  should be calling your tableviews data source model to loadMoreData
+	//  put here just for demo
+	_loadingMore = YES;
+	
+}
+
+- (void)doneLoadingMoreTableViewData{
+	
+	//  model should call this when its done loading
+     numberOfCells++;
+    [self.tableView reloadData];
+	_loadingMore = NO;
+	[_loadMoreFooterView egoLoadMoreScrollViewDataSourceDidFinishedLoading:self.tableView];
+	
+}
+
+
 
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
@@ -110,12 +153,16 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
 	
 	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    [_loadMoreFooterView egoLoadMoreScrollViewDidScroll:scrollView];
+    
 		
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 	
 	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    [_loadMoreFooterView egoLoadMoreScrollViewDidEndDragging:scrollView];
+
 	
 }
 
@@ -142,6 +189,21 @@
 	
 }
 
+#pragma mark -
+#pragma mark EGORefreshTableFooterDelegate Methods
+
+- (void)egoLoadMoreTableFooterDidTriggerRefresh:(EGORefreshTableFooterView *)view
+{
+	[self loadMoreFromTableViewDataSource];
+	[self performSelector:@selector(doneLoadingMoreTableViewData) withObject:nil afterDelay:3.0];
+	
+}
+
+- (BOOL)egoLoadMoreTableFooterDataSourceIsLoading:(EGORefreshTableFooterView *)view{
+	
+	return _loadingMore; // should return if data source model is loading more
+	
+}
 
 #pragma mark -
 #pragma mark Memory Management
@@ -151,12 +213,16 @@
 }
 
 - (void)viewDidUnload {
+    [_refreshHeaderView release];
+    [_loadMoreFooterView release];
 	_refreshHeaderView=nil;
+    _loadMoreFooterView =nil;
 }
 
 - (void)dealloc {
 	
-	_refreshHeaderView = nil;
+	[_refreshHeaderView release];
+    [_loadMoreFooterView release];
     [super dealloc];
 }
 

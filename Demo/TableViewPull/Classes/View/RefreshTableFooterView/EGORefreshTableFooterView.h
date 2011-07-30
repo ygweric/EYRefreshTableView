@@ -1,9 +1,9 @@
 //
-//  RootViewController.h
-//  TableViewPull
+//  EGORefreshTableHeaderView.h
+//  Demo
 //
-//  Created by Devin Doty on 10/16/09October16.
-//  Copyright enormego 2009. All rights reserved.
+//  Created by Devin Doty on 10/14/09October14.
+//  Copyright 2009 enormego. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,27 +24,37 @@
 //  THE SOFTWARE.
 //
 
+#import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
-#import "EGORefreshTableHeaderView.h"
-#import "EGORefreshTableFooterView.h"
+typedef enum{
+	EGOOPullLoadMorePulling = 0,
+	EGOOPullLoadMoreNormal,
+	EGOOPullLoadMoreLoading,	
+} EGOPullLoadMoreState;
 
-@interface RootViewController : UITableViewController  <EGORefreshTableHeaderDelegate, EGORefreshTableFooterDelegate, UITableViewDelegate, UITableViewDataSource>{
+@protocol EGORefreshTableFooterDelegate;
+@interface EGORefreshTableFooterView : UIView {
 	
-	EGORefreshTableHeaderView *_refreshHeaderView;
-    EGORefreshTableFooterView *_loadMoreFooterView;
+	id<EGORefreshTableFooterDelegate> _delegate;
+	EGOPullLoadMoreState _state;
+
+	UILabel *_statusLabel;
+	CALayer *_arrowImage;
+	UIActivityIndicatorView *_activityView;
 	
-	//  Reloading var should really be your tableviews datasource
-	//  Putting it here for demo purposes 
-	BOOL _reloading;
-    BOOL _loadingMore;
-    
-    NSUInteger numberOfCells;
+
 }
 
-- (void)reloadTableViewDataSource;
-- (void)doneLoadingTableViewData;
+@property(nonatomic,assign) id <EGORefreshTableFooterDelegate> delegate;
 
-- (void)loadMoreFromTableViewDataSource;
-- (void)doneLoadingMoreTableViewData;
+- (void)egoLoadMoreScrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)egoLoadMoreScrollViewDidEndDragging:(UIScrollView *)scrollView;
+- (void)egoLoadMoreScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 
+@end
+
+@protocol EGORefreshTableFooterDelegate <NSObject>
+- (void)egoLoadMoreTableFooterDidTriggerRefresh:(EGORefreshTableFooterView*)view;
+- (BOOL)egoLoadMoreTableFooterDataSourceIsLoading:(EGORefreshTableFooterView*)view;
 @end

@@ -24,18 +24,21 @@
 //  THE SOFTWARE.
 //
 
-#import "EGORefreshTableHeaderView.h"
+#import "EGORefreshTableFooterView.h"
 
 
 #define TEXT_COLOR	 [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0]
 #define FLIP_ANIMATION_DURATION 0.18f
+#define PullLoadMoreViewAreaHeight 60.0f
+#define PullLoadMoreViewTriggerHeight 65.0f
 
 
-@interface EGORefreshTableHeaderView (Private)
-- (void)setState:(EGOPullRefreshState)aState;
+@interface EGORefreshTableFooterView (Private)
+- (void)setState:(EGOPullLoadMoreState)aState;
+- (CGFloat) normalizedOffsetFromScrollView:(UIScrollView *) scrollView;
 @end
 
-@implementation EGORefreshTableHeaderView
+@implementation EGORefreshTableFooterView
 
 @synthesize delegate=_delegate;
 
@@ -45,20 +48,9 @@
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
-
-		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 30.0f, self.frame.size.width, 20.0f)];
-		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont systemFontOfSize:12.0f];
-		label.textColor = TEXT_COLOR;
-		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-		label.backgroundColor = [UIColor clearColor];
-		label.textAlignment = UITextAlignmentCenter;
-		[self addSubview:label];
-		_lastUpdatedLabel=label;
-		[label release];
 		
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, self.frame.size.width, 20.0f)];
+        
+		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, ((PullLoadMoreViewAreaHeight-20.0f)/2), self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 		label.font = [UIFont boldSystemFontOfSize:13.0f];
 		label.textColor = TEXT_COLOR;
@@ -71,7 +63,7 @@
 		[label release];
 		
 		CALayer *layer = [CALayer layer];
-		layer.frame = CGRectMake(25.0f, frame.size.height - 65.0f, 30.0f, 55.0f);
+		layer.frame = CGRectMake(25.0f, 10.0f, 30.0f, 55.0f);
 		layer.contentsGravity = kCAGravityResizeAspect;
 		layer.contents = (id)[UIImage imageNamed:@"blueArrow.png"].CGImage;
 		
@@ -85,13 +77,13 @@
 		_arrowImage=layer;
 		
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(25.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
+		view.frame = CGRectMake(35.0f, ((PullLoadMoreViewAreaHeight-20.0f)/2), 20.0f, 20.0f);
 		[self addSubview:view];
 		_activityView = view;
 		[view release];
 		
 		
-		[self setState:EGOOPullRefreshNormal];
+		[self setState:EGOOPullLoadMoreNormal];
 		
     }
 	
@@ -103,62 +95,38 @@
 #pragma mark -
 #pragma mark Setters
 
-- (void)refreshLastUpdatedDate {
-	
-	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceLastUpdated:)]) {
-		
-		NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
-		
-		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-		[formatter setAMSymbol:@"AM"];
-		[formatter setPMSymbol:@"PM"];
-		[formatter setDateFormat:@"MM/dd/yyyy hh:mm:a"];
-		_lastUpdatedLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [formatter stringFromDate:date]];
-		[[NSUserDefaults standardUserDefaults] setObject:_lastUpdatedLabel.text forKey:@"EGORefreshTableView_LastRefresh"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
-		[formatter release];
-		
-	} else {
-		
-		_lastUpdatedLabel.text = nil;
-		
-	}
 
-}
-
-- (void)setState:(EGOPullRefreshState)aState{
+- (void)setState:(EGOPullLoadMoreState)aState{
 	
 	switch (aState) {
-		case EGOOPullRefreshPulling:
+		case EGOOPullLoadMorePulling:
 			
-			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+			_statusLabel.text = NSLocalizedString(@"Release to load more...", @"Release to load more status");
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
-			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
+			_arrowImage.transform = CATransform3DIdentity;
 			[CATransaction commit];
 			
 			break;
-		case EGOOPullRefreshNormal:
+		case EGOOPullLoadMoreNormal:
 			
-			if (_state == EGOOPullRefreshPulling) {
+			if (_state == EGOOPullLoadMorePulling) {
 				[CATransaction begin];
 				[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
-				_arrowImage.transform = CATransform3DIdentity;
+				_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
 				[CATransaction commit];
 			}
 			
-			_statusLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+			_statusLabel.text = NSLocalizedString(@"Pull up to load more...", @"Pull up to load more status");
 			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = NO;
-			_arrowImage.transform = CATransform3DIdentity;
+			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
 			[CATransaction commit];
-			
-			[self refreshLastUpdatedDate];
-			
+						
 			break;
-		case EGOOPullRefreshLoading:
+		case EGOOPullLoadMoreLoading:
 			
 			_statusLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
 			[_activityView startAnimating];
@@ -175,78 +143,99 @@
 	_state = aState;
 }
 
+- (CGFloat) normalizedOffsetFromScrollView:(UIScrollView *) scrollView
+{
+    CGFloat scrollAreaContenHeight = scrollView.contentSize.height;
+    
+    CGFloat headerHeight = self.bounds.size.height; // Our hight is same as the refresh header height, wich is a subview to tableview and part of the content height.
+    CGFloat visibleTableHeight = MIN(scrollView.bounds.size.height, (scrollAreaContenHeight - headerHeight));
+    CGFloat scrolledDistance = scrollView.contentOffset.y + headerHeight + visibleTableHeight; // If scrolled all the way down this should add upp to the content heigh.
+    
+    CGFloat normalizedOffset = scrolledDistance - scrollAreaContenHeight;
+    
+    return normalizedOffset;
+}
+
 
 #pragma mark -
 #pragma mark ScrollView Methods
 
-- (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView {	
-	
-	if (_state == EGOOPullRefreshLoading) {
-		
-		CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
-		offset = MIN(offset, 60);
+- (void)egoLoadMoreScrollViewDidScroll:(UIScrollView *)scrollView {	
+    
+    
+    
+    CGFloat normalizedOffset = [self normalizedOffsetFromScrollView:scrollView];
+
+	if (_state == EGOOPullLoadMoreLoading) {
+        /* This fix is not neccessary for footer */
+        /*
+		CGFloat offset = MAX(normalizedOffset, 0);
+		offset = MIN(offset, PullLoadMoreViewAreaHeight);
         UIEdgeInsets currentInsets = scrollView.contentInset;
-        currentInsets.top = offset;
-		scrollView.contentInset = currentInsets;
+        currentInsets.bottom = -self.bounds.size.height +offset;
+        scrollView.contentInset = currentInsets; */
 		
 	} else if (scrollView.isDragging) {
 		
 		BOOL _loading = NO;
-		if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceIsLoading:)]) {
-			_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
+		if ([_delegate respondsToSelector:@selector(egoLoadMoreTableFooterDataSourceIsLoading:)]) {
+			_loading = [_delegate egoLoadMoreTableFooterDataSourceIsLoading:self];
 		}
 		
-		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f && !_loading) {
-			[self setState:EGOOPullRefreshNormal];
-		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < -65.0f && !_loading) {
-			[self setState:EGOOPullRefreshPulling];
+		if (_state == EGOOPullLoadMorePulling && normalizedOffset < (PullLoadMoreViewAreaHeight) && normalizedOffset > 0.0f && !_loading) {
+			[self setState:EGOOPullLoadMoreNormal];
+		} else if (_state == EGOOPullLoadMoreNormal && normalizedOffset > PullLoadMoreViewTriggerHeight && !_loading) {
+			[self setState:EGOOPullLoadMorePulling];
 		}
 		
-		if (scrollView.contentInset.top != 0) {
+		if (scrollView.contentInset.bottom != -self.bounds.size.height) {
             UIEdgeInsets currentInsets = scrollView.contentInset;
-            currentInsets.top = 0;
-            scrollView.contentInset = currentInsets;
+            currentInsets.bottom = -self.bounds.size.height;
+			scrollView.contentInset = currentInsets;
 		}
 		
 	}
 	
 }
 
-- (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView {
-	
+- (void)egoLoadMoreScrollViewDidEndDragging:(UIScrollView *)scrollView {
+    
+    CGFloat normalizedOffset = [self normalizedOffsetFromScrollView:scrollView];
+
 	BOOL _loading = NO;
-	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceIsLoading:)]) {
-		_loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
+	if ([_delegate respondsToSelector:@selector(egoLoadMoreTableFooterDataSourceIsLoading:)]) {
+		_loading = [_delegate egoLoadMoreTableFooterDataSourceIsLoading:self];
 	}
 	
-	if (scrollView.contentOffset.y <= - 65.0f && !_loading) {
+	if (normalizedOffset >= PullLoadMoreViewTriggerHeight && !_loading) {
 		
-		if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDidTriggerRefresh:)]) {
-			[_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
+		if ([_delegate respondsToSelector:@selector(egoLoadMoreTableFooterDidTriggerRefresh:)]) {
+			[_delegate egoLoadMoreTableFooterDidTriggerRefresh:self];
 		}
 		
-		[self setState:EGOOPullRefreshLoading];
+		[self setState:EGOOPullLoadMoreLoading];
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.2];
         UIEdgeInsets currentInsets = scrollView.contentInset;
-        currentInsets.top = 60.0f;
-		scrollView.contentInset = currentInsets;
+        currentInsets.bottom =  PullLoadMoreViewAreaHeight - self.bounds.size.height;
+        scrollView.contentInset = currentInsets;
 		[UIView commitAnimations];
+
 		
 	}
 	
 }
 
-- (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView {	
+- (void)egoLoadMoreScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView {	
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
     UIEdgeInsets currentInsets = scrollView.contentInset;
-    currentInsets.top = 0;
+    currentInsets.bottom = -self.bounds.size.height;
     scrollView.contentInset = currentInsets;
 	[UIView commitAnimations];
 	
-	[self setState:EGOOPullRefreshNormal];
+	[self setState:EGOOPullLoadMoreNormal];
 
 }
 
@@ -260,9 +249,10 @@
 	_activityView = nil;
 	_statusLabel = nil;
 	_arrowImage = nil;
-	_lastUpdatedLabel = nil;
     [super dealloc];
 }
+
+
 
 
 @end
