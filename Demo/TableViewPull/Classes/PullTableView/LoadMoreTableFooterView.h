@@ -35,7 +35,7 @@
 	
 	id _delegate;
 	EGOPullState _state;
-
+    
 	UILabel *_statusLabel;
 	CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;

@@ -44,7 +44,7 @@
         isLoading = NO;
         
         CGFloat midY = PULL_AREA_HEIGTH/2;
-        		
+        
         /* Config Status Updated Label */
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, midY - 10, self.frame.size.width, 20.0f)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -95,7 +95,7 @@
     CGFloat normalizedOffset = scrollAreaContenHeight -scrolledDistance;
     
     return normalizedOffset;
-
+    
 }
 
 - (CGFloat)visibleTableHeightDiffWithBoundsHeight:(UIScrollView *) scrollView
@@ -113,7 +113,7 @@
 	switch (aState) {
 		case EGOOPullPulling:
 			
-			_statusLabel.text = NSLocalizedString(@"Release to load more...", @"Release to load more status");
+			_statusLabel.text = NSLocalizedStringFromTable(@"Release to load more...",@"PullTableViewLan", @"Release to load more status");
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			_arrowImage.transform = CATransform3DIdentity;
@@ -129,18 +129,18 @@
 				[CATransaction commit];
 			}
 			
-			_statusLabel.text = NSLocalizedString(@"Pull up to load more...", @"Pull down to load more status");
+			_statusLabel.text = NSLocalizedStringFromTable(@"Pull up to load more...", @"PullTableViewLan",@"Pull down to load more status");
 			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = NO;
 			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
 			[CATransaction commit];
-						
+            
 			break;
 		case EGOOPullLoading:
 			
-			_statusLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
+			_statusLabel.text = NSLocalizedStringFromTable(@"Loading...", @"PullTableViewLan",@"Loading Status");
 			[_activityView startAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -231,7 +231,7 @@
 	[UIView commitAnimations];
 	
 	[self setState:EGOOPullNormal];
-
+    
 }
 
 

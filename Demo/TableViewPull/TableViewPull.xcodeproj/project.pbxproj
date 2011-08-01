@@ -23,7 +23,6 @@
 		3A2585571088E97000126784 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2585541088E97000126784 /* whiteArrow.png */; };
 		3A3D908E11187FE7002B6585 /* TableViewPullAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D908D11187FE7002B6585 /* TableViewPullAppDelegate.m */; };
 		3A3D910311188495002B6585 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D910211188495002B6585 /* main.m */; };
-		C3639B6313E46938008B67A8 /* PullTableViewLan.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3639B6213E46938008B67A8 /* PullTableViewLan.strings */; };
 		C3B0B3A813E6A6AE00C2F547 /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B0B3A613E6A6AD00C2F547 /* LoadMoreTableFooterView.m */; };
 		C3E0F15513E409A40075F464 /* PullTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0F15413E409A40075F464 /* PullTableView.m */; };
 		C3E0F15F13E40A140075F464 /* PullTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0F15D13E40A140075F464 /* PullTableViewController.m */; };
@@ -53,7 +52,6 @@
 		3A3D90C411188297002B6585 /* TableViewPull_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewPull_Prefix.pch; sourceTree = "<group>"; };
 		3A3D910211188495002B6585 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* TableViewPull-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TableViewPull-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		C3639B6213E46938008B67A8 /* PullTableViewLan.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = PullTableViewLan.strings; path = PullTableView/PullTableViewLan.strings; sourceTree = "<group>"; };
 		C3B0B3A613E6A6AD00C2F547 /* LoadMoreTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoadMoreTableFooterView.m; path = PullTableView/LoadMoreTableFooterView.m; sourceTree = "<group>"; };
 		C3B0B3A713E6A6AE00C2F547 /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoadMoreTableFooterView.h; path = PullTableView/LoadMoreTableFooterView.h; sourceTree = "<group>"; };
 		C3E0F15313E409A40075F464 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullTableView.h; path = PullTableView/PullTableView.h; sourceTree = "<group>"; };
@@ -170,7 +168,6 @@
 				C3E0F15413E409A40075F464 /* PullTableView.m */,
 				C3E0F16413E43AB70075F464 /* MessageInterceptor.h */,
 				C3E0F16513E43AB70075F464 /* MessageInterceptor.m */,
-				C3639B6213E46938008B67A8 /* PullTableViewLan.strings */,
 			);
 			name = "Implemantation as a subclass";
 			sourceTree = "<group>";
@@ -249,7 +246,6 @@
 				2CCD9B5F1243CE1A006B1864 /* grayArrow.png in Resources */,
 				2CCD9B611243CE22006B1864 /* whiteArrow@2x.png in Resources */,
 				C3E0F16013E40A140075F464 /* PullTableViewController.xib in Resources */,
-				C3639B6313E46938008B67A8 /* PullTableViewLan.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -57,7 +57,7 @@
     delegateInterceptor.middleMan = self;
     delegateInterceptor.receiver = self.delegate;
     super.delegate = (id)delegateInterceptor;
-
+    
     /* Status Properties */
     pullTableIsRefreshing = NO;
     pullTableIsLoadingMore = NO;
@@ -67,7 +67,7 @@
     refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     refreshView.delegate = self;
     [self addSubview:refreshView];
-
+    
     /* Load more view init */
     loadMoreView = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
     loadMoreView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
@@ -88,7 +88,7 @@
     loadMoreFrame.origin.y = self.contentSize.height + visibleTableDiffBoundsHeight;
     loadMoreView.frame = loadMoreFrame;
     
-
+    
     
     
 }
@@ -159,7 +159,7 @@
 {
     if(aPullArrowImage != pullArrowImage) {
         [pullArrowImage release];
-         pullArrowImage = [aPullArrowImage retain];
+        pullArrowImage = [aPullArrowImage retain];
         [self configDisplayProperties];
     }
 }
@@ -195,7 +195,7 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-
+    
     [refreshView egoRefreshScrollViewDidScroll:scrollView];
     [loadMoreView egoRefreshScrollViewDidScroll:scrollView];
     

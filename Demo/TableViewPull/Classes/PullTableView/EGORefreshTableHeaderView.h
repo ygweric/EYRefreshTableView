@@ -49,7 +49,7 @@ typedef enum{
 	
 	id _delegate;
 	EGOPullState _state;
-
+    
 	UILabel *_lastUpdatedLabel;
 	UILabel *_statusLabel;
 	CALayer *_arrowImage;

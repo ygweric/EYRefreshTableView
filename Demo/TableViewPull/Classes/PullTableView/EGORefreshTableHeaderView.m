@@ -96,6 +96,10 @@
 #pragma mark -
 #pragma mark Setters
 
+#define aMinute 60
+#define anHour 3600
+#define aDay 86400
+
 - (void)refreshLastUpdatedDate {
     NSDate * date = nil;
 	if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceLastUpdated:)]) {
@@ -103,8 +107,21 @@
 	}
     if(date) {
         NSTimeInterval timeSinceLastUpdate = [date timeIntervalSinceNow];
-        timeSinceLastUpdate /= -60.0; // Convert to positive minutes
-        _lastUpdatedLabel.text = [NSString stringWithFormat:@"Updated %.0f minutes ago", timeSinceLastUpdate];
+        timeSinceLastUpdate *= -1;
+        if(timeSinceLastUpdate < anHour) {
+            
+            _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %.0f minutes ago",@"PullTableViewLan",@"Last uppdate in minutes"), (timeSinceLastUpdate / aMinute)];
+            
+        } else if (timeSinceLastUpdate < aDay) {
+            
+            _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %.0f hours ago",@"PullTableViewLan",@"Last uppdate in hours"), (timeSinceLastUpdate / anHour)];
+            
+        } else {
+            
+            _lastUpdatedLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"Updated %.0f days ago",@"PullTableViewLan",@"Last uppdate in days"), (timeSinceLastUpdate / aDay)];
+            
+        }
+        
     } else {
         _lastUpdatedLabel.text = nil;
     }
@@ -116,7 +133,7 @@
     } else {
         _statusLabel.frame = CGRectMake(0.0f, midY - 18, self.frame.size.width, 20.0f);
     }
-
+    
 }
 
 - (void)setState:(EGOPullState)aState{
@@ -124,7 +141,7 @@
 	switch (aState) {
 		case EGOOPullPulling:
 			
-			_statusLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+			_statusLabel.text = NSLocalizedStringFromTable(@"Release to refresh...",@"PullTableViewLan", @"Release to refresh status");
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
@@ -140,7 +157,7 @@
 				[CATransaction commit];
 			}
 			
-			_statusLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+			_statusLabel.text = NSLocalizedStringFromTable(@"Pull down to refresh...",@"PullTableViewLan", @"Pull down to refresh status");
 			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -153,7 +170,7 @@
 			break;
 		case EGOOPullLoading:
 			
-			_statusLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
+			_statusLabel.text = NSLocalizedStringFromTable(@"Loading...",@"PullTableViewLan", @"Loading Status");
 			[_activityView startAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -191,8 +208,7 @@
 
 
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView {	
-    //NSLog(@"top offset: %f", scrollView.contentOffset.y);
-
+    
 	if (_state == EGOOPullLoading) {
 		CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
 		offset = MIN(offset, PULL_AREA_HEIGTH);
@@ -254,7 +270,7 @@
 	[UIView commitAnimations];
 	
 	[self setState:EGOOPullNormal];
-
+    
 }
 
 - (void)egoRefreshScrollViewWillBeginDragging:(UIScrollView *)scrollView

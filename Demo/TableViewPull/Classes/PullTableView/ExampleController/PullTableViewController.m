@@ -38,8 +38,8 @@
     
     PullTableView * pullTableView = ((PullTableView *)self.tableView );
     pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];    
-    pullTableView.pullTableIsRefreshing = NO;
-    pullTableView.pullTableIsLoadingMore = NO;
+    pullTableView.pullTableIsRefreshing = YES;
+    pullTableView.pullTableIsLoadingMore = YES;
     
     [self performSelector:@selector(stopRefreshing) withObject:nil afterDelay:3.0];
     [self performSelector:@selector(stopLoadingMore) withObject:nil afterDelay:3.0];
