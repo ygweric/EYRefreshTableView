@@ -28,10 +28,10 @@
 #import <QuartzCore/QuartzCore.h>
 
 typedef enum{
-	EGOOPullRefreshPulling = 0,
-	EGOOPullRefreshNormal,
-	EGOOPullRefreshLoading,	
-} EGOPullRefreshState;
+	EGOOPullPulling = 0,
+	EGOOPullNormal,
+	EGOOPullLoading,	
+} EGOPullState;
 
 #define DEFAULT_ARROW_IMAGE         [UIImage imageNamed:@"blueArrow.png"]
 #define DEFAULT_BACKGROUND_COLOR    [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0]
@@ -48,7 +48,7 @@ typedef enum{
 @interface EGORefreshTableHeaderView : UIView {
 	
 	id _delegate;
-	EGOPullRefreshState _state;
+	EGOPullState _state;
 
 	UILabel *_lastUpdatedLabel;
 	UILabel *_statusLabel;

@@ -32,14 +32,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    numberOfCells = 7;
+    numberOfCells = 4;
     
     /* Config PullTableView */
+    
     PullTableView * pullTableView = ((PullTableView *)self.tableView );
-    pullTableView.pullTableIsRefreshing = YES;
     pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];    
+    pullTableView.pullTableIsRefreshing = NO;
+    pullTableView.pullTableIsLoadingMore = NO;
     
     [self performSelector:@selector(stopRefreshing) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(stopLoadingMore) withObject:nil afterDelay:3.0];
+
 }
 
 - (void)viewDidUnload
@@ -177,12 +181,23 @@
     pullTable.pullTableIsRefreshing = NO;
 }
 
+- (void) stopLoadingMore
+{
+    PullTableView * pullTable = (PullTableView *) self.tableView;
+    pullTable.pullTableIsLoadingMore= NO;
+}
+
 #pragma mark PullTableViewDelegate
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
     pullTableView.pullLastRefreshDate = nil;
     [self performSelector:@selector(stopRefreshing) withObject:nil afterDelay:3.0];
+}
+
+- (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
+{
+    [self performSelector:@selector(stopLoadingMore) withObject:nil afterDelay:3.0];
 }
 
 @end

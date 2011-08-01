@@ -62,19 +62,18 @@
     pullTableIsRefreshing = NO;
     pullTableIsLoadingMore = NO;
     
-    
+    /* Refresh View */
     refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
     refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     refreshView.delegate = self;
     [self addSubview:refreshView];
 
     /* Load more view init */
-    loadMoreView = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
+    loadMoreView = [[LoadMoreTableFooterView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
     loadMoreView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-
-    loadMoreView.backgroundColor = [UIColor redColor];
+    loadMoreView.delegate = self;
     [self addSubview:loadMoreView];
-
+    
 }
 
 
@@ -83,9 +82,15 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    CGFloat visibleTableDiffBoundsHeight = (self.bounds.size.height - MIN(self.bounds.size.height, self.contentSize.height));
+    
     CGRect loadMoreFrame = loadMoreView.frame;
-    loadMoreFrame.origin.y = self.contentSize.height;
+    loadMoreFrame.origin.y = self.contentSize.height + visibleTableDiffBoundsHeight;
     loadMoreView.frame = loadMoreFrame;
+    
+
+    
+    
 }
 
 #pragma mark - Preserving the original behaviour
@@ -99,6 +104,13 @@
     } else {
         super.delegate = delegate;
     }
+}
+
+- (void)reloadData
+{
+    [super reloadData];
+    // Give the footers a chance to fix it self.
+    [loadMoreView egoRefreshScrollViewDidScroll:self];
 }
 
 #pragma mark - Status Propreties
@@ -118,6 +130,18 @@
     }
 }
 
+- (void)setPullTableIsLoadingMore:(BOOL)isLoadingMore
+{
+    if(!pullTableIsLoadingMore && isLoadingMore) {
+        // If not allready loading more start refreshing
+        [loadMoreView startAnimatingWithScrollView:self];
+        pullTableIsLoadingMore = YES;
+    } else if(pullTableIsLoadingMore && !isLoadingMore) {
+        [loadMoreView egoRefreshScrollViewDataSourceDidFinishedLoading:self];
+        pullTableIsLoadingMore = NO;
+    }
+}
+
 #pragma mark - Display properties
 
 @synthesize pullArrowImage;
@@ -128,7 +152,7 @@
 - (void)configDisplayProperties
 {
     [refreshView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
-#warning loadMoreView Should also be set
+    [loadMoreView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
 }
 
 - (void)setPullArrowImage:(UIImage *)aPullArrowImage
@@ -173,6 +197,7 @@
 {
 
     [refreshView egoRefreshScrollViewDidScroll:scrollView];
+    [loadMoreView egoRefreshScrollViewDidScroll:scrollView];
     
     // Also forward the message to the real delegate
     if ([delegateInterceptor.receiver
@@ -185,7 +210,8 @@
 {
     
     [refreshView egoRefreshScrollViewDidEndDragging:scrollView];
-#warning loadMoreView Should also be set
+    [loadMoreView egoRefreshScrollViewDidEndDragging:scrollView];
+    
     // Also forward the message to the real delegate
     if ([delegateInterceptor.receiver
          respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
@@ -204,6 +230,8 @@
     }
 }
 
+
+
 #pragma mark - EGORefreshTableHeaderDelegate
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
@@ -214,6 +242,14 @@
 
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view {
     return self.pullLastRefreshDate;
+}
+
+#pragma mark - LoadMoreTableViewDelegate
+
+- (void)loadMoreTableFooterDidTriggerLoadMore:(LoadMoreTableFooterView *)view
+{
+    pullTableIsLoadingMore = YES;
+    [pullDelegate pullTableViewDidTriggerLoadMore:self];
 }
 
 

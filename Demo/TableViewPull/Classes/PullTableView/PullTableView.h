@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MessageInterceptor.h"
 #import "EGORefreshTableHeaderView.h"
+#import "LoadMoreTableFooterView.h"
 
 @class PullTableView;
 @protocol PullTableViewDelegate <NSObject>
@@ -20,9 +21,10 @@
 @end
 
 
-@interface PullTableView : UITableView <EGORefreshTableHeaderDelegate>{
+@interface PullTableView : UITableView <EGORefreshTableHeaderDelegate, LoadMoreTableFooterDelegate>{
+    
     EGORefreshTableHeaderView *refreshView;
-    UIView *loadMoreView;
+    LoadMoreTableFooterView *loadMoreView;
     
     // Since we use the contentInsets to manipulate the view we need to store the the content insets originally specified.
     UIEdgeInsets realContentInsets;

@@ -24,37 +24,38 @@
 //  THE SOFTWARE.
 //
 
+// This class has derived from the EGORefreshTableHeaderView
+
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "EGORefreshTableHeaderView.h"
 
-typedef enum{
-	EGOOPullLoadMorePulling = 0,
-	EGOOPullLoadMoreNormal,
-	EGOOPullLoadMoreLoading,	
-} EGOPullLoadMoreState;
-
-@protocol EGORefreshTableFooterDelegate;
-@interface EGORefreshTableFooterView : UIView {
+@protocol LoadMoreTableFooterDelegate;
+@interface LoadMoreTableFooterView : UIView {
 	
-	id<EGORefreshTableFooterDelegate> _delegate;
-	EGOPullLoadMoreState _state;
+	id _delegate;
+	EGOPullState _state;
 
 	UILabel *_statusLabel;
 	CALayer *_arrowImage;
 	UIActivityIndicatorView *_activityView;
+    
+    // Set this to Yes when egoRefreshTableHeaderDidTriggerRefresh delegate is called and No with egoRefreshScrollViewDataSourceDidFinishedLoading
+    BOOL isLoading;
 	
-
 }
 
-@property(nonatomic,assign) id <EGORefreshTableFooterDelegate> delegate;
+@property(nonatomic,assign) id <LoadMoreTableFooterDelegate> delegate;
 
-- (void)egoLoadMoreScrollViewDidScroll:(UIScrollView *)scrollView;
-- (void)egoLoadMoreScrollViewDidEndDragging:(UIScrollView *)scrollView;
-- (void)egoLoadMoreScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
+- (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
+- (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
+- (void)startAnimatingWithScrollView:(UIScrollView *) scrollView;
+- (void)setBackgroundColor:(UIColor *)backgroundColor textColor:(UIColor *) textColor arrowImage:(UIImage *) arrowImage;
+
 
 @end
 
-@protocol EGORefreshTableFooterDelegate <NSObject>
-- (void)egoLoadMoreTableFooterDidTriggerRefresh:(EGORefreshTableFooterView*)view;
-- (BOOL)egoLoadMoreTableFooterDataSourceIsLoading:(EGORefreshTableFooterView*)view;
+@protocol LoadMoreTableFooterDelegate
+- (void)loadMoreTableFooterDidTriggerLoadMore:(LoadMoreTableFooterView*)view;
 @end
