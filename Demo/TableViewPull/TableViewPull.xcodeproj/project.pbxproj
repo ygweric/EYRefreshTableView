@@ -22,10 +22,15 @@
 		3A2585561088E97000126784 /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2585531088E97000126784 /* blueArrow.png */; };
 		3A2585571088E97000126784 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2585541088E97000126784 /* whiteArrow.png */; };
 		3A3D908E11187FE7002B6585 /* TableViewPullAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D908D11187FE7002B6585 /* TableViewPullAppDelegate.m */; };
-		3A3D909E11188064002B6585 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D909D11188064002B6585 /* EGORefreshTableHeaderView.m */; };
 		3A3D90A8111881DE002B6585 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D90A7111881DE002B6585 /* RootViewController.m */; };
 		3A3D910311188495002B6585 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D910211188495002B6585 /* main.m */; };
 		C32576A813E1622300CE92B8 /* EGORefreshTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C32576A613E1622300CE92B8 /* EGORefreshTableFooterView.m */; };
+		C3639B6313E46938008B67A8 /* PullTableViewLan.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3639B6213E46938008B67A8 /* PullTableViewLan.strings */; };
+		C3E0F15513E409A40075F464 /* PullTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0F15413E409A40075F464 /* PullTableView.m */; };
+		C3E0F15F13E40A140075F464 /* PullTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0F15D13E40A140075F464 /* PullTableViewController.m */; };
+		C3E0F16013E40A140075F464 /* PullTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E0F15E13E40A140075F464 /* PullTableViewController.xib */; };
+		C3E0F16613E43AB80075F464 /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0F16513E43AB70075F464 /* MessageInterceptor.m */; };
+		C3E0F16913E443D00075F464 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0F16713E443D00075F464 /* EGORefreshTableHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +51,6 @@
 		3A2585541088E97000126784 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		3A3D908C11187FE7002B6585 /* TableViewPullAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewPullAppDelegate.h; sourceTree = "<group>"; };
 		3A3D908D11187FE7002B6585 /* TableViewPullAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewPullAppDelegate.m; sourceTree = "<group>"; };
-		3A3D909C11188064002B6585 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
-		3A3D909D11188064002B6585 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		3A3D90A6111881DE002B6585 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		3A3D90A7111881DE002B6585 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		3A3D90C411188297002B6585 /* TableViewPull_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewPull_Prefix.pch; sourceTree = "<group>"; };
@@ -55,6 +58,16 @@
 		8D1107310486CEB800E47090 /* TableViewPull-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "TableViewPull-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C32576A613E1622300CE92B8 /* EGORefreshTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EGORefreshTableFooterView.m; path = RefreshTableFooterView/EGORefreshTableFooterView.m; sourceTree = "<group>"; };
 		C32576A713E1622300CE92B8 /* EGORefreshTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableFooterView.h; path = RefreshTableFooterView/EGORefreshTableFooterView.h; sourceTree = "<group>"; };
+		C3639B6213E46938008B67A8 /* PullTableViewLan.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = PullTableViewLan.strings; path = PullTableView/PullTableViewLan.strings; sourceTree = "<group>"; };
+		C3E0F15313E409A40075F464 /* PullTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullTableView.h; path = PullTableView/PullTableView.h; sourceTree = "<group>"; };
+		C3E0F15413E409A40075F464 /* PullTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullTableView.m; path = PullTableView/PullTableView.m; sourceTree = "<group>"; };
+		C3E0F15C13E40A140075F464 /* PullTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullTableViewController.h; path = PullTableView/ExampleController/PullTableViewController.h; sourceTree = "<group>"; };
+		C3E0F15D13E40A140075F464 /* PullTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullTableViewController.m; path = PullTableView/ExampleController/PullTableViewController.m; sourceTree = "<group>"; };
+		C3E0F15E13E40A140075F464 /* PullTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PullTableViewController.xib; path = PullTableView/ExampleController/PullTableViewController.xib; sourceTree = "<group>"; };
+		C3E0F16413E43AB70075F464 /* MessageInterceptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageInterceptor.h; path = PullTableView/MessageInterceptor.h; sourceTree = "<group>"; };
+		C3E0F16513E43AB70075F464 /* MessageInterceptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageInterceptor.m; path = PullTableView/MessageInterceptor.m; sourceTree = "<group>"; };
+		C3E0F16713E443D00075F464 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EGORefreshTableHeaderView.m; path = PullTableView/EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		C3E0F16813E443D00075F464 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EGORefreshTableHeaderView.h; path = PullTableView/EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +88,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C3E0F15213E4091F0075F464 /* Implemantation as a subclass */,
 				3A3D90931118801F002B6585 /* Controller */,
 				3A3D909211188012002B6585 /* View */,
 				3A3D908411187FAD002B6585 /* Delegate */,
@@ -169,8 +183,6 @@
 		3A3D909B11188064002B6585 /* RefreshTableHeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				3A3D909C11188064002B6585 /* EGORefreshTableHeaderView.h */,
-				3A3D909D11188064002B6585 /* EGORefreshTableHeaderView.m */,
 			);
 			path = RefreshTableHeaderView;
 			sourceTree = "<group>";
@@ -191,6 +203,31 @@
 				C32576A613E1622300CE92B8 /* EGORefreshTableFooterView.m */,
 			);
 			name = RefreshTableFooterView;
+			sourceTree = "<group>";
+		};
+		C3E0F15213E4091F0075F464 /* Implemantation as a subclass */ = {
+			isa = PBXGroup;
+			children = (
+				C3E0F15613E409BA0075F464 /* Example Controller */,
+				C3E0F16813E443D00075F464 /* EGORefreshTableHeaderView.h */,
+				C3E0F16713E443D00075F464 /* EGORefreshTableHeaderView.m */,
+				C3E0F15313E409A40075F464 /* PullTableView.h */,
+				C3E0F15413E409A40075F464 /* PullTableView.m */,
+				C3E0F16413E43AB70075F464 /* MessageInterceptor.h */,
+				C3E0F16513E43AB70075F464 /* MessageInterceptor.m */,
+				C3639B6213E46938008B67A8 /* PullTableViewLan.strings */,
+			);
+			name = "Implemantation as a subclass";
+			sourceTree = "<group>";
+		};
+		C3E0F15613E409BA0075F464 /* Example Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C3E0F15C13E40A140075F464 /* PullTableViewController.h */,
+				C3E0F15D13E40A140075F464 /* PullTableViewController.m */,
+				C3E0F15E13E40A140075F464 /* PullTableViewController.xib */,
+			);
+			name = "Example Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +293,8 @@
 				2CCD9B5D1243CDC2006B1864 /* blackArrow@2x.png in Resources */,
 				2CCD9B5F1243CE1A006B1864 /* grayArrow.png in Resources */,
 				2CCD9B611243CE22006B1864 /* whiteArrow@2x.png in Resources */,
+				C3E0F16013E40A140075F464 /* PullTableViewController.xib in Resources */,
+				C3639B6313E46938008B67A8 /* PullTableViewLan.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +306,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A3D908E11187FE7002B6585 /* TableViewPullAppDelegate.m in Sources */,
-				3A3D909E11188064002B6585 /* EGORefreshTableHeaderView.m in Sources */,
 				3A3D90A8111881DE002B6585 /* RootViewController.m in Sources */,
 				3A3D910311188495002B6585 /* main.m in Sources */,
 				C32576A813E1622300CE92B8 /* EGORefreshTableFooterView.m in Sources */,
+				C3E0F15513E409A40075F464 /* PullTableView.m in Sources */,
+				C3E0F15F13E40A140075F464 /* PullTableViewController.m in Sources */,
+				C3E0F16613E43AB80075F464 /* MessageInterceptor.m in Sources */,
+				C3E0F16913E443D00075F464 /* EGORefreshTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
