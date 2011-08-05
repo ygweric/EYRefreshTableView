@@ -32,18 +32,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    numberOfCells = 4;
+    numberOfCells = 10;
     
     /* Config PullTableView */
     
     PullTableView * pullTableView = ((PullTableView *)self.tableView );
     pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];    
     pullTableView.pullTableIsRefreshing = YES;
-    pullTableView.pullTableIsLoadingMore = YES;
     
     [self performSelector:@selector(stopRefreshing) withObject:nil afterDelay:3.0];
-    [self performSelector:@selector(stopLoadingMore) withObject:nil afterDelay:3.0];
-
 }
 
 - (void)viewDidUnload
@@ -170,8 +167,6 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
-    numberOfCells++;
-    [self .tableView reloadData];
 }
 
 - (void) stopRefreshing
@@ -183,6 +178,8 @@
 
 - (void) stopLoadingMore
 {
+    numberOfCells++;
+    [self .tableView reloadData];
     PullTableView * pullTable = (PullTableView *) self.tableView;
     pullTable.pullTableIsLoadingMore= NO;
 }
