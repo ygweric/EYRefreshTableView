@@ -1,3 +1,9 @@
+Whats different on this fork:
+-> Easy integration, the table view can be added and configured using interface builder.
+-> Easy configuration, the arrow image, background color and text color can simply be changed by properties of the PullTableView class.
+-> "Pull to reload more data" functionality at the bottom of the table.
+-> Possibility to trigger the "refreshing" and "loading more" animations by code.
+
 The fast setup:
 -> Add QuartzCore.framework to your project
 -> Drag drop EGOTableViewPullRefresh directory to your project.
@@ -5,7 +11,7 @@ The fast setup:
 -> Add a PullTableView to your code and implement the PullTableViewDelegate methods.
 -> Enjoy!
 
-How to create the demo project:
+The detailed setup (Walk through for creating the demo project):
 -> Create a new Xcode project
 -> Choose 'View Based Application'
 -> Product name: EGOTableViewPullRefreshDemo
