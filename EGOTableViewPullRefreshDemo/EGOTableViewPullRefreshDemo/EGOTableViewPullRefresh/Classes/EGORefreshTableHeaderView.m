@@ -264,6 +264,9 @@
     currentInsets.top = PULL_AREA_HEIGTH;
     scrollView.contentInset = currentInsets;
     [UIView commitAnimations];
+    if(scrollView.contentOffset.y <= 0){
+        [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, -PULL_TRIGGER_HEIGHT) animated:YES];
+    }    
 }
 
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView {
