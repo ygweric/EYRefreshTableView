@@ -56,7 +56,7 @@
 		_statusLabel=label;
 		
         /* Config Arrow Image */
-		CALayer *layer = [CALayer layer];
+		CALayer *layer = [[CALayer alloc] init];
 		layer.frame = CGRectMake(25.0f,midY - 20, 30.0f, 55.0f);
 		layer.contentsGravity = kCAGravityResizeAspect;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
