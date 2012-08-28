@@ -45,6 +45,7 @@
     [refreshView release];
     [loadMoreView release];
     [delegateInterceptor release];
+    delegateInterceptor = nil;
     [super dealloc];
 }
 
