@@ -205,7 +205,7 @@
     currentInsets.bottom = PULL_AREA_HEIGTH + [self visibleTableHeightDiffWithBoundsHeight:scrollView];
     scrollView.contentInset = currentInsets;
     [UIView commitAnimations];
-    if([self scrollViewOffsetFromBottom:scrollView] <= 0){
+    if([self scrollViewOffsetFromBottom:scrollView] == 0){
         [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y + PULL_TRIGGER_HEIGHT) animated:YES];
     }
 }
