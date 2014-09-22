@@ -14,5 +14,5 @@
 }
 
 
-@property (nonatomic, retain) IBOutlet PullTableView *pullTableView;
+@property (nonatomic, strong) IBOutlet PullTableView *pullTableView;
 @end

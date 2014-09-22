@@ -55,10 +55,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
-    [pullTableView release];
-    [super dealloc];
-}
 
 #pragma mark - Refresh and load more methods
 

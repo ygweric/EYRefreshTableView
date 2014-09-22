@@ -33,7 +33,7 @@
 @protocol LoadMoreTableFooterDelegate;
 @interface LoadMoreTableFooterView : UIView {
 	
-	id _delegate;
+	id __weak _delegate;
 	EGOPullState _state;
     
 	UILabel *_statusLabel;
@@ -45,7 +45,7 @@
 	
 }
 
-@property(nonatomic,assign) id <LoadMoreTableFooterDelegate> delegate;
+@property(nonatomic,weak) id <LoadMoreTableFooterDelegate> delegate;
 
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;

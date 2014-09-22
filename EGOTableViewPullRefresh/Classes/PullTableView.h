@@ -62,17 +62,17 @@
     BOOL pullTableIsLoadingMore;
     
     // Delegate
-    id<PullTableViewDelegate> pullDelegate;
+    id<PullTableViewDelegate> __weak pullDelegate;
     
 }
 
 /* The configurable display properties of PullTableView. Set to nil for default values */
-@property (nonatomic, retain) UIImage *pullArrowImage;
-@property (nonatomic, retain) UIColor *pullBackgroundColor;
-@property (nonatomic, retain) UIColor *pullTextColor;
+@property (nonatomic, strong) UIImage *pullArrowImage;
+@property (nonatomic, strong) UIColor *pullBackgroundColor;
+@property (nonatomic, strong) UIColor *pullTextColor;
 
 /* Set to nil to hide last modified text */
-@property (nonatomic, retain) NSDate *pullLastRefreshDate;
+@property (nonatomic, strong) NSDate *pullLastRefreshDate;
 
 /* Properties to set the status of the refresh/loadMore operations. */
 /* After the delegate methods are triggered the respective properties are automatically set to YES. After a refresh/reload is done it is necessary to set the respective property to NO, otherwise the animation won't disappear. You can also set the properties manually to YES to show the animations. */
@@ -80,6 +80,6 @@
 @property (nonatomic, assign) BOOL pullTableIsLoadingMore;
 
 /* Delegate */
-@property (nonatomic, assign) IBOutlet id<PullTableViewDelegate> pullDelegate;
+@property (nonatomic, weak) IBOutlet id<PullTableViewDelegate> pullDelegate;
 
 @end

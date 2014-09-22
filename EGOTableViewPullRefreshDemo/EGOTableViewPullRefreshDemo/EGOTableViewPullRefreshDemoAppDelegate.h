@@ -12,8 +12,8 @@
 
 @interface EGOTableViewPullRefreshDemoAppDelegate : NSObject <UIApplicationDelegate>
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet EGOTableViewPullRefreshDemoViewController *viewController;
+@property (nonatomic, strong) IBOutlet EGOTableViewPullRefreshDemoViewController *viewController;
 
 @end
