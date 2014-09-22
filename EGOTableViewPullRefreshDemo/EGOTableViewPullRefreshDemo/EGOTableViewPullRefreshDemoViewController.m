@@ -27,8 +27,8 @@
 {
     [super viewDidLoad];
     self.pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
-    self.pullTableView.pullBackgroundColor = [UIColor yellowColor];
-    self.pullTableView.pullTextColor = [UIColor blackColor];
+    self.pullTableView.pullBackgroundColor = [UIColor clearColor];
+    self.pullTableView.pullTextColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated

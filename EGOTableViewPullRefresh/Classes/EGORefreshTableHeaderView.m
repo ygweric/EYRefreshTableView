@@ -38,48 +38,47 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        CGFloat midY = frame.size.height - PULL_AREA_HEIGTH/2;
 		
         isLoading = NO;
-        
-        CGFloat midY = frame.size.height - PULL_AREA_HEIGTH/2;
-        
-        /* Config Last Updated Label */
-		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, midY, self.frame.size.width, 20.0f)];
-		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont systemFontOfSize:12.0f];
-		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-		label.backgroundColor = [UIColor clearColor];
-		label.textAlignment = UITextAlignmentCenter;
-		[self addSubview:label];
-		_lastUpdatedLabel=label;
-		
-        /* Config Status Updated Label */
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, midY - 18, self.frame.size.width, 20.0f)];
-		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont boldSystemFontOfSize:13.0f];
-		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
-		label.backgroundColor = [UIColor clearColor];
-		label.textAlignment = UITextAlignmentCenter;
-		[self addSubview:label];
-		_statusLabel=label;
-		
-        /* Config Arrow Image */
-		CALayer *layer = [[CALayer alloc] init];
-		layer.frame = CGRectMake(25.0f,midY - 35, 30.0f, 55.0f);
-		layer.contentsGravity = kCAGravityResizeAspect;
+        if (NO) {//README show activity only
+            
+            /* Config Last Updated Label */
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, midY, self.frame.size.width, 20.0f)];
+            label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            label.font = [UIFont systemFontOfSize:12.0f];
+            label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+            label.backgroundColor = [UIColor clearColor];
+            label.textAlignment = UITextAlignmentCenter;
+            [self addSubview:label];
+            _lastUpdatedLabel=label;
+            
+            /* Config Status Updated Label */
+            label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, midY - 18, self.frame.size.width, 20.0f)];
+            label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            label.font = [UIFont boldSystemFontOfSize:13.0f];
+            label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+            label.backgroundColor = [UIColor clearColor];
+            label.textAlignment = UITextAlignmentCenter;
+            [self addSubview:label];
+            _statusLabel=label;
+            
+            /* Config Arrow Image */
+            CALayer *layer = [[CALayer alloc] init];
+            layer.frame = CGRectMake(25.0f,midY - 35, 30.0f, 55.0f);
+            layer.contentsGravity = kCAGravityResizeAspect;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
-		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-			layer.contentsScale = [[UIScreen mainScreen] scale];
-		}
+            if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+                layer.contentsScale = [[UIScreen mainScreen] scale];
+            }
 #endif
-		[[self layer] addSublayer:layer];
-		_arrowImage=layer;
-		
+            [[self layer] addSublayer:layer];
+            _arrowImage=layer;
+            
+        }
         /* Config activity indicator */
-		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:DEFAULT_ACTIVITY_INDICATOR_STYLE];
-		view.frame = CGRectMake(25.0f,midY - 8, 20.0f, 20.0f);
-		[self addSubview:view];
-		_activityView = view;		
+        _circleView = [[CircleView alloc] initWithFrame:CGRectMake(95, midY - 8, 26, 26)];
+        [self addSubview:_circleView];
 		
 		[self setState:EGOOPullNormal];
         
@@ -175,10 +174,12 @@
 				[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 				_arrowImage.transform = CATransform3DIdentity;
 				[CATransaction commit];
-			}
+            } else {
+                [self setProgress:0];
+                [_circleView setNeedsDisplay];
+            }
 			
 			_statusLabel.text = NSLocalizedStringFromTable(@"Pull down to refresh...",@"PullTableViewLan", @"Pull down to refresh status");
-			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = NO;
@@ -189,14 +190,30 @@
 			
 			break;
 		case EGOOPullLoading:
-			
+        {
 			_statusLabel.text = NSLocalizedStringFromTable(@"Loading...",@"PullTableViewLan", @"Loading Status");
-			[_activityView startAnimating];
+			
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
 			_arrowImage.hidden = YES;
 			[CATransaction commit];
 			
+            CABasicAnimation* rotate =  [CABasicAnimation animationWithKeyPath: @"transform.rotation.z"];
+            rotate.removedOnCompletion = FALSE;
+            rotate.fillMode = kCAFillModeForwards;
+            
+            //Do a series of 5 quarter turns for a total of a 1.25 turns
+            //(2PI is a full turn, so pi/2 is a quarter turn)
+            [rotate setToValue: [NSNumber numberWithFloat: M_PI / 2]];
+            rotate.repeatCount = 11;
+            
+            rotate.duration = 0.25;
+            //            rotate.beginTime = start;
+            rotate.cumulative = TRUE;
+            rotate.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+            
+            [_circleView.layer addAnimation:rotate forKey:@"rotateAnimation"];
+        }
 			break;
 		default:
 			break;
@@ -239,8 +256,16 @@
 	} else if (scrollView.isDragging) {
 		if (_state == EGOOPullPulling && scrollView.contentOffset.y > -PULL_TRIGGER_HEIGHT && scrollView.contentOffset.y < 0.0f && !isLoading) {
 			[self setState:EGOOPullNormal];
-		} else if (_state == EGOOPullNormal && scrollView.contentOffset.y < -PULL_TRIGGER_HEIGHT && !isLoading) {
-			[self setState:EGOOPullPulling];
+		} else if (_state == EGOOPullNormal && scrollView.contentOffset.y < -PULL_AREA_MIN_HEIGTH && !isLoading) {
+            float moveY = fabsf(scrollView.contentOffset.y);
+            if (moveY > 65)
+                moveY = 65;
+            [self setProgress:(moveY-15) / (65-15)];
+            [_circleView setNeedsDisplay];
+            
+            if (scrollView.contentOffset.y < -65.0f) {
+                [self setState:EGOOPullPulling];
+            }
             
 		}
 		
@@ -292,6 +317,12 @@
     scrollView.contentInset = currentInsets;
 	[UIView commitAnimations];
 	
+    double delayInSeconds = 0.2;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_circleView.layer removeAllAnimations];
+    });
+    
 	[self setState:EGOOPullNormal];
     
 }
@@ -309,6 +340,14 @@
 	
 	_delegate=nil;
 }
+
+- (void)setProgress:(float)p {
+    _circleView.progress = p;
+    _statusLabel.alpha = p;
+    _lastUpdatedLabel.alpha = p;
+}
+
+
 
 
 @end

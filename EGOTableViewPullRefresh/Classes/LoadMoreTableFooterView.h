@@ -45,6 +45,7 @@
 	
 }
 
+
 @property(nonatomic,weak) id <LoadMoreTableFooterDelegate> delegate;
 
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;

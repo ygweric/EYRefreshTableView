@@ -27,11 +27,14 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "CircleView.h"
+
 typedef enum{
 	EGOOPullPulling = 0,
 	EGOOPullNormal,
 	EGOOPullLoading,	
 } EGOPullState;
+
 
 #define DEFAULT_ARROW_IMAGE         [UIImage imageNamed:@"blueArrow.png"]
 #define DEFAULT_BACKGROUND_COLOR    [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0]
@@ -42,7 +45,7 @@ typedef enum{
 
 #define PULL_AREA_HEIGTH 60.0f
 #define PULL_TRIGGER_HEIGHT (PULL_AREA_HEIGTH + 5.0f)
-
+#define PULL_AREA_MIN_HEIGTH 15.0f
 
 @protocol EGORefreshTableHeaderDelegate;
 @interface EGORefreshTableHeaderView : UIView {
@@ -53,13 +56,14 @@ typedef enum{
 	UILabel *_lastUpdatedLabel;
 	UILabel *_statusLabel;
 	CALayer *_arrowImage;
-	UIActivityIndicatorView *_activityView;
+	CircleView *_circleView;
     
     // Set this to Yes when egoRefreshTableHeaderDidTriggerRefresh delegate is called and No with egoRefreshScrollViewDataSourceDidFinishedLoading
     BOOL isLoading;
 	
 }
 
+@property BOOL showActivityOnly;//default yes
 @property(nonatomic,weak) id <EGORefreshTableHeaderDelegate> delegate;
 
 - (void)refreshLastUpdatedDate;
