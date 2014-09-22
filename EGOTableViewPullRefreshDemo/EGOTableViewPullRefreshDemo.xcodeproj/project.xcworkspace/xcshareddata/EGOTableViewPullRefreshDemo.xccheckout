@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1D915D7D-F193-48D1-9823-98F14A7B5E24</string>
+	<key>IDESourceControlProjectName</key>
+	<string>EGOTableViewPullRefreshDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C1EAC31CD1AF7D1DB6D106E12F0751387C5F863E</key>
+		<string>https://github.com/emreberge/EGOTableViewPullRefresh.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>EGOTableViewPullRefreshDemo/EGOTableViewPullRefreshDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C1EAC31CD1AF7D1DB6D106E12F0751387C5F863E</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/emreberge/EGOTableViewPullRefresh.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C1EAC31CD1AF7D1DB6D106E12F0751387C5F863E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C1EAC31CD1AF7D1DB6D106E12F0751387C5F863E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EGOTableViewPullRefresh</string>
+		</dict>
+	</array>
+</dict>
+</plist>

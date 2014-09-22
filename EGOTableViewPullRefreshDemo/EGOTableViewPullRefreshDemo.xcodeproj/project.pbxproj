@@ -199,6 +199,13 @@
 /* Begin PBXProject section */
 		C3292AA6142776BF009428B5 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				TargetAttributes = {
+					C3292AAE142776BF009428B5 = {
+						DevelopmentTeam = 77SM2DKNM6;
+					};
+				};
+			};
 			buildConfigurationList = C3292AA9142776BF009428B5 /* Build configuration list for PBXProject "EGOTableViewPullRefreshDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -328,10 +335,14 @@
 		C3292AD1142776C0009428B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eric Yang (64WP457TN6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EGOTableViewPullRefreshDemo/EGOTableViewPullRefreshDemo-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "EGOTableViewPullRefreshDemo/EGOTableViewPullRefreshDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "00d416a9-03ae-4455-8561-6b88937d36af";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -339,10 +350,14 @@
 		C3292AD2142776C0009428B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eric Yang (64WP457TN6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EGOTableViewPullRefreshDemo/EGOTableViewPullRefreshDemo-Prefix.pch";
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "EGOTableViewPullRefreshDemo/EGOTableViewPullRefreshDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "00d416a9-03ae-4455-8561-6b88937d36af";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
