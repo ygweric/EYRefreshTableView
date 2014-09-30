@@ -28,7 +28,6 @@
 
 @interface PullTableView (Private) <UIScrollViewDelegate>
 - (void) config;
-- (void) configDisplayProperties;
 @end
 
 @implementation PullTableView
@@ -162,35 +161,11 @@
 @synthesize pullTextColor;
 @synthesize pullLastRefreshDate;
 
-- (void)configDisplayProperties
-{
 
-    [loadMoreView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
-}
 
-- (void)setPullArrowImage:(UIImage *)aPullArrowImage
-{
-    if(aPullArrowImage != pullArrowImage) {
-        pullArrowImage = aPullArrowImage;
-        [self configDisplayProperties];
-    }
-}
 
-- (void)setPullBackgroundColor:(UIColor *)aColor
-{
-    if(aColor != pullBackgroundColor) {
-        pullBackgroundColor = aColor;
-        [self configDisplayProperties];
-    } 
-}
 
-- (void)setPullTextColor:(UIColor *)aColor
-{
-    if(aColor != pullTextColor) {
-        pullTextColor = aColor;
-        [self configDisplayProperties];
-    } 
-}
+
 
 - (void)setPullLastRefreshDate:(NSDate *)aDate
 {
@@ -231,6 +206,7 @@
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [refreshView egoRefreshScrollViewWillBeginDragging:scrollView];
+    [loadMoreView egoRefreshScrollViewWillBeginDragging:scrollView];
     
     // Also forward the message to the real delegate
     if ([delegateInterceptor.receiver

@@ -28,31 +28,22 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "EGORefreshTableHeaderView.h"
 
 @protocol LoadMoreTableFooterDelegate;
 @interface LoadMoreTableFooterView : UIView {
-	
-	id __weak _delegate;
-	EGOPullState _state;
-    
-	UILabel *_statusLabel;
-	CALayer *_arrowImage;
-	UIActivityIndicatorView *_activityView;
-    
-    // Set this to Yes when egoRefreshTableHeaderDidTriggerRefresh delegate is called and No with egoRefreshScrollViewDataSourceDidFinishedLoading
-    BOOL isLoading;
-	
+		
 }
 
 
-@property(nonatomic,weak) id <LoadMoreTableFooterDelegate> delegate;
+@property(nonatomic,weak) NSObject <LoadMoreTableFooterDelegate>* delegate;
+@property(nonatomic,strong) UIColor* circleColor;
+
 
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
+- (void)egoRefreshScrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)startAnimatingWithScrollView:(UIScrollView *) scrollView;
-- (void)setBackgroundColor:(UIColor *)backgroundColor textColor:(UIColor *) textColor arrowImage:(UIImage *) arrowImage;
 
 
 @end

@@ -25,7 +25,18 @@
 //
 
 #import "EGORefreshTableHeaderView.h"
+typedef enum{
+    EGOOPullPulling = 0,
+    EGOOPullNormal,
+    EGOOPullLoading,
+} EGOPullState;
 
+
+#define FLIP_ANIMATION_DURATION 0.18f
+
+#define PULL_AREA_HEIGTH 90.0f
+#define PULL_TRIGGER_HEIGHT (PULL_AREA_HEIGTH + 5.0f)
+#define PULL_AREA_MIN_HEIGTH 15.0f
 
 @interface EGORefreshTableHeaderView()
 
@@ -33,13 +44,9 @@
 @property(nonatomic,strong) UILabel *lastUpdatedLabel;
 @property(nonatomic,strong) CircleView *circleView;
 @property(nonatomic,assign) BOOL isLoading;
-- (void)setState:(EGOPullState)aState;
 @end
 
 @implementation EGORefreshTableHeaderView
-
-@synthesize delegate=_delegate;
-
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -58,7 +65,7 @@
             _lastUpdatedLabel=label;
         }
         {
-            _circleView = [[CircleView alloc] initWithFrame:CGRectMake(self.bounds.size.width/2-13, midY - 8-8, 26, 26)];;
+            _circleView = [[CircleView alloc] initWithFrame:CGRectMake(self.bounds.size.width/2-13, midY - 16, 26, 26)];;
             [self addSubview:_circleView];
         }
         [self setState:EGOOPullNormal];
@@ -150,7 +157,7 @@
 
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView {	
     
-	if (_state == EGOOPullLoading) {
+	if (_state == EGOOPullLoading) {//keep the offset
 		CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
 		offset = MIN(offset, PULL_AREA_HEIGTH);
         UIEdgeInsets currentInsets = scrollView.contentInset;
@@ -158,9 +165,9 @@
         scrollView.contentInset = currentInsets;
 		
 	} else if (scrollView.isDragging) {
-		if (_state == EGOOPullPulling && scrollView.contentOffset.y > -PULL_TRIGGER_HEIGHT && scrollView.contentOffset.y < 0.0f && !_isLoading) {
+		if (_state == EGOOPullPulling && scrollView.contentOffset.y > -PULL_TRIGGER_HEIGHT && scrollView.contentOffset.y < 0.0f && !_isLoading) {//error case
 			[self setState:EGOOPullNormal];
-		} else if (_state == EGOOPullNormal && scrollView.contentOffset.y < -PULL_AREA_MIN_HEIGTH && !_isLoading) {
+		} else if (_state == EGOOPullNormal && scrollView.contentOffset.y < -PULL_AREA_MIN_HEIGTH && !_isLoading) {//change the circle progress
             float moveY = fabsf(scrollView.contentOffset.y);
             if (moveY > PULL_TRIGGER_HEIGHT)
                 moveY = PULL_TRIGGER_HEIGHT;
@@ -229,7 +236,6 @@
 
 
 #pragma mark -
-#pragma mark Dealloc
 
 - (void)setProgress:(float)p {
     _circleView.progress = p;
