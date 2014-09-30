@@ -43,28 +43,20 @@ typedef enum{
 
 #define FLIP_ANIMATION_DURATION 0.18f
 
-#define PULL_AREA_HEIGTH 60.0f
+#define PULL_AREA_HEIGTH 90.0f
 #define PULL_TRIGGER_HEIGHT (PULL_AREA_HEIGTH + 5.0f)
 #define PULL_AREA_MIN_HEIGTH 15.0f
 
 @protocol EGORefreshTableHeaderDelegate;
 @interface EGORefreshTableHeaderView : UIView {
 	
-	id __weak _delegate;
-	EGOPullState _state;
-    
-	UILabel *_lastUpdatedLabel;
-	UILabel *_statusLabel;
-	CALayer *_arrowImage;
-	CircleView *_circleView;
-    
-    // Set this to Yes when egoRefreshTableHeaderDidTriggerRefresh delegate is called and No with egoRefreshScrollViewDataSourceDidFinishedLoading
-    BOOL isLoading;
 	
 }
 
-@property BOOL showActivityOnly;//default yes
-@property(nonatomic,weak) id <EGORefreshTableHeaderDelegate> delegate;
+@property(nonatomic,weak) NSObject <EGORefreshTableHeaderDelegate>* delegate;
+@property(nonatomic,strong) UIColor* textColor;
+@property(nonatomic,strong) UIColor* circleColor;
+
 
 - (void)refreshLastUpdatedDate;
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
@@ -72,7 +64,6 @@ typedef enum{
 - (void)egoRefreshScrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 - (void)startAnimatingWithScrollView:(UIScrollView *) scrollView;
-- (void)setBackgroundColor:(UIColor *)backgroundColor textColor:(UIColor *) textColor arrowImage:(UIImage *) arrowImage;
 
 
 @end

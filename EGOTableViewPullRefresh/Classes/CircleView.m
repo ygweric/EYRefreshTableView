@@ -35,10 +35,9 @@
 {
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     CGContextSetLineWidth(context, 1.0);
     CGContextSetLineCap(context, kCGLineCapRound);
-    UIColor* color= [UIColor colorWithRed:(0xf3)/255.0  green:(0x53)/255.0 blue:(0x08)/255.0 alpha:1.0];
+    UIColor* color= _color?_color:[UIColor redColor];
     CGContextSetStrokeColorWithColor(context, color.CGColor);
     CGFloat startAngle = -M_PI/3;
     CGFloat step = 11*M_PI/6 * self.progress;

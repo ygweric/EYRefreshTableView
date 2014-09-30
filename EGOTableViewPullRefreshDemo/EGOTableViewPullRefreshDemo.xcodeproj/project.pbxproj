@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F64F6F219DA66E7006E35DC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F64F6F119DA66E7006E35DC /* Default-568h@2x.png */; };
 		5FB72C6919D024B200B46781 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB72C6819D024B200B46781 /* CircleView.m */; };
-		5FB72C6C19D0275300B46781 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB72C6B19D0275300B46781 /* NSDate+TimeAgo.m */; };
 		C311998F15A5CE47006733DB /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C311997F15A5CE47006733DB /* EGORefreshTableHeaderView.m */; };
 		C311999015A5CE47006733DB /* LoadMoreTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = C311998115A5CE47006733DB /* LoadMoreTableFooterView.m */; };
 		C311999115A5CE47006733DB /* MessageInterceptor.m in Sources */ = {isa = PBXBuildFile; fileRef = C311998315A5CE47006733DB /* MessageInterceptor.m */; };
@@ -34,10 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F64F6F119DA66E7006E35DC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		5FB72C6719D024B200B46781 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
 		5FB72C6819D024B200B46781 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
-		5FB72C6A19D0275300B46781 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
-		5FB72C6B19D0275300B46781 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
 		C311997E15A5CE47006733DB /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		C311997F15A5CE47006733DB /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		C311998015A5CE47006733DB /* LoadMoreTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreTableFooterView.h; sourceTree = "<group>"; };
@@ -109,8 +108,6 @@
 				C311998515A5CE47006733DB /* PullTableView.m */,
 				5FB72C6719D024B200B46781 /* CircleView.h */,
 				5FB72C6819D024B200B46781 /* CircleView.m */,
-				5FB72C6A19D0275300B46781 /* NSDate+TimeAgo.h */,
-				5FB72C6B19D0275300B46781 /* NSDate+TimeAgo.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -133,6 +130,7 @@
 		C3292AA4142776BF009428B5 = {
 			isa = PBXGroup;
 			children = (
+				5F64F6F119DA66E7006E35DC /* Default-568h@2x.png */,
 				C3292AB9142776BF009428B5 /* EGOTableViewPullRefreshDemo */,
 				C3292AB2142776BF009428B5 /* Frameworks */,
 				C3292AB0142776BF009428B5 /* Products */,
@@ -210,6 +208,7 @@
 		C3292AA6142776BF009428B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					C3292AAE142776BF009428B5 = {
 						DevelopmentTeam = 77SM2DKNM6;
@@ -243,6 +242,7 @@
 				C3292ACD142776C0009428B5 /* EGOTableViewPullRefreshDemoViewController.xib in Resources */,
 				C311999315A5CE47006733DB /* blackArrow.png in Resources */,
 				C311999415A5CE47006733DB /* blackArrow@2x.png in Resources */,
+				5F64F6F219DA66E7006E35DC /* Default-568h@2x.png in Resources */,
 				C311999515A5CE47006733DB /* blueArrow.png in Resources */,
 				C311999615A5CE47006733DB /* blueArrow@2x.png in Resources */,
 				C311999715A5CE47006733DB /* grayArrow.png in Resources */,
@@ -264,7 +264,6 @@
 				C3292ACA142776C0009428B5 /* EGOTableViewPullRefreshDemoViewController.m in Sources */,
 				C311998F15A5CE47006733DB /* EGORefreshTableHeaderView.m in Sources */,
 				5FB72C6919D024B200B46781 /* CircleView.m in Sources */,
-				5FB72C6C19D0275300B46781 /* NSDate+TimeAgo.m in Sources */,
 				C311999015A5CE47006733DB /* LoadMoreTableFooterView.m in Sources */,
 				C311999115A5CE47006733DB /* MessageInterceptor.m in Sources */,
 				C311999215A5CE47006733DB /* PullTableView.m in Sources */,
@@ -305,7 +304,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -321,6 +319,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -329,7 +328,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

@@ -75,6 +75,8 @@
     
     /* Refresh View */
     refreshView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
+    refreshView.textColor=[UIColor greenColor];
+    refreshView.circleColor=[UIColor orangeColor];
     refreshView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     refreshView.delegate = self;
     [self addSubview:refreshView];
@@ -162,7 +164,7 @@
 
 - (void)configDisplayProperties
 {
-    [refreshView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
+
     [loadMoreView setBackgroundColor:self.pullBackgroundColor textColor:self.pullTextColor arrowImage:self.pullArrowImage];
 }
 

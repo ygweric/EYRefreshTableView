@@ -11,5 +11,7 @@
 @interface CircleView : UIView
 
 @property (nonatomic, assign) float progress;
+@property (nonatomic, strong) UIColor* color;//circle color
+
 
 @end

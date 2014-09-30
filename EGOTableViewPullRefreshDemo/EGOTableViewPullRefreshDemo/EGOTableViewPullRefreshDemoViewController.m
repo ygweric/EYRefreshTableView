@@ -28,17 +28,17 @@
     [super viewDidLoad];
     self.pullTableView.pullArrowImage = [UIImage imageNamed:@"blackArrow"];
     self.pullTableView.pullBackgroundColor = [UIColor clearColor];
-    self.pullTableView.pullTextColor = [UIColor clearColor];
+    self.pullTableView.pullTextColor = [UIColor blackColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     
     [super viewWillAppear:animated];
-    if(!self.pullTableView.pullTableIsRefreshing) {
-        self.pullTableView.pullTableIsRefreshing = YES;
-        [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
-    }
+//    if(!self.pullTableView.pullTableIsRefreshing) {
+//        self.pullTableView.pullTableIsRefreshing = YES;
+//        [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
+//    }
 }
 
 - (void)viewDidUnload
