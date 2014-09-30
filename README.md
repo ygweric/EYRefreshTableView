@@ -3,6 +3,9 @@
 
 ![1][1]
 ![2][2]
+
+
+
 Just as the images show, I use simple icon animation to instead the ios default activity control.
 
 
