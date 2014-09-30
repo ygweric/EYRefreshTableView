@@ -1,3 +1,11 @@
+
+
+
+![1][1]
+![2][2]
+Just as the images show, I use simple icon animation to instead the ios default activity control.
+
+
 # Whats different on this fork:
 - Easy integration, the table view can be added and configured using interface builder.
 - Easy configuration, the arrow image, background color and text color can simply be changed by properties of the PullTableView class.
@@ -123,3 +131,7 @@
             self.pullTableView.pullTableIsRefreshing = YES;
             [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3];
         }
+
+
+  [1]: https://raw.githubusercontent.com/ygweric/EYRefreshTableView/master/screenshot/1.png
+  [2]: https://raw.githubusercontent.com/ygweric/EYRefreshTableView/master/screenshot/2.png
