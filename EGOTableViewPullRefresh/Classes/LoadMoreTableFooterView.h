@@ -35,12 +35,13 @@
 }
 
 
-@property(nonatomic,weak) NSObject <LoadMoreTableFooterDelegate>* delegate;
+@property(nonatomic,weak) UIScrollView <LoadMoreTableFooterDelegate>* delegate;
 @property(nonatomic,strong) UIColor* circleColor;
 
 
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
+- (void)egoRefreshScrollViewDidEndDecelerating:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)startAnimatingWithScrollView:(UIScrollView *) scrollView;

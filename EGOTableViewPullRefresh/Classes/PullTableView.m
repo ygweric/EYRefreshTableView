@@ -202,7 +202,10 @@
         [delegateInterceptor.receiver scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
     }
 }
-
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [refreshView egoRefreshScrollViewDidEndDecelerating:scrollView];
+    [loadMoreView egoRefreshScrollViewDidEndDecelerating:scrollView];
+}
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [refreshView egoRefreshScrollViewWillBeginDragging:scrollView];

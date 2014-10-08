@@ -167,7 +167,11 @@ typedef enum{
         [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y + PULL_TRIGGER_HEIGHT) animated:YES];
     }
 }
-
+- (void)egoRefreshScrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (!_isLoading) {
+        [self setState:EGOOPullNormal];
+    }
+}
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView {
 	
 	
@@ -200,7 +204,7 @@ typedef enum{
 }
 - (void)egoRefreshScrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self setState:EGOOPullNormal];
+//    [self setState:EGOOPullNormal];
 }
 
 

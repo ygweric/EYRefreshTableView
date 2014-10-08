@@ -119,11 +119,13 @@
 
 - (void)pullTableViewDidTriggerRefresh:(PullTableView *)pullTableView
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshTable) object:nil];
     [self performSelector:@selector(refreshTable) withObject:nil afterDelay:3.0f];
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(PullTableView *)pullTableView
 {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadMoreDataToTable) object:nil];
     [self performSelector:@selector(loadMoreDataToTable) withObject:nil afterDelay:3.0f];
 }
 

@@ -37,7 +37,7 @@
 	
 }
 
-@property(nonatomic,weak) NSObject <EGORefreshTableHeaderDelegate>* delegate;
+@property(nonatomic,weak) UIScrollView <EGORefreshTableHeaderDelegate>* delegate;
 @property(nonatomic,strong) UIColor* textColor;
 @property(nonatomic,strong) UIColor* circleColor;
 
@@ -45,6 +45,7 @@
 - (void)refreshLastUpdatedDate;
 - (void)egoRefreshScrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView;
+- (void)egoRefreshScrollViewDidEndDecelerating:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewWillBeginDragging:(UIScrollView *)scrollView;
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView;
 - (void)startAnimatingWithScrollView:(UIScrollView *) scrollView;

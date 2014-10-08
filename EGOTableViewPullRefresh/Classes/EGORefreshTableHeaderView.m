@@ -131,6 +131,7 @@ typedef enum{
 		case EGOOPullNormal:
             [self setProgress:0];
             [self refreshLastUpdatedDate];
+            [_delegate setContentOffset:CGPointZero];
 			break;
 		case EGOOPullLoading:
         {
@@ -198,6 +199,9 @@ typedef enum{
     if(scrollView.contentOffset.y == 0){
         [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, -PULL_TRIGGER_HEIGHT) animated:YES];
     }    
+}
+- (void)egoRefreshScrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
 }
 
 - (void)egoRefreshScrollViewDidEndDragging:(UIScrollView *)scrollView {
